@@ -397,6 +397,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+### 🖼️ Visual Showcase
+
+#### n8n UI Preview:
+![Dashboard UI](Image/n8n_1.png)
 <div align="center">
 
 ### 🌟 If this project helped you, please consider giving it a star! 🌟
