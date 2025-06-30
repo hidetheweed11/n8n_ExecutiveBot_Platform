@@ -1,10 +1,14 @@
 # 🤖 Amin's Smart Telegram Bot
-*Powered by n8n, AI Agents & Multi-Service Integration*
+*Powered by Docker, Ollama, Gemini AI & Advanced Integrations*
 
-[![n8n](https://img.shields.io/badge/n8n-Workflow-EA4B71?style=for-the-badge&logo=n8n)](https://n8n.io)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker)](https://docker.com)
+[![Ollama](https://img.shields.io/badge/Ollama-AI_Models-FF6B35?style=for-the-badge&logo=ollama)](https://ollama.ai)
+[![Gemini](https://img.shields.io/badge/Gemini-AI_Powered-4285F4?style=for-the-badge&logo=google)](https://gemini.google.com)
 [![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?style=for-the-badge&logo=telegram)](https://telegram.org)
-[![AI Powered](https://img.shields.io/badge/AI-Powered-FF6B35?style=for-the-badge&logo=openai)](https://openai.com)
-[![Google](https://img.shields.io/badge/Google-Integrated-4285F4?style=for-the-badge&logo=google)](https://google.com)
+[![ngrok](https://img.shields.io/badge/ngrok-Tunneling-1F1E37?style=for-the-badge&logo=ngrok)](https://ngrok.com)
+[![WSL](https://img.shields.io/badge/WSL-Linux_Subsystem-FCC624?style=for-the-badge&logo=linux)](https://docs.microsoft.com/en-us/windows/wsl/)
+[![Python](https://img.shields.io/badge/Python-Backend-3776AB?style=for-the-badge&logo=python)](https://python.org)
+[![JSON](https://img.shields.io/badge/JSON-Data_Format-000000?style=for-the-badge&logo=json)](https://json.org)
 
 ---
 
