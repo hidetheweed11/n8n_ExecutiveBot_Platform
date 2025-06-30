@@ -1,0 +1,331 @@
+# N8N Telegram Bot - .gitignore
+# Created for Amin's Smart Telegram Bot Project
+# Repository: https://github.com/Amin-moniry-pr7
+
+# ================================
+# N8N Specific Files
+# ================================
+# N8N data directory
+.n8n/
+n8n_data/
+**/n8n_data/**
+
+# N8N configuration files
+n8n.config.json
+n8n.env
+.n8n.env
+
+# N8N workflow backup files
+*.n8n.bak
+workflows_backup/
+
+# N8N execution logs
+execution_logs/
+n8n-logs/
+
+# ================================
+# Credentials & API Keys
+# ================================
+# Environment files
+.env
+.env.*
+!.env.example
+
+# API Keys and tokens
+api_keys.json
+tokens.json
+secrets.json
+
+# Google OAuth credentials
+google_credentials.json
+client_secret.json
+service_account.json
+
+# Telegram bot tokens
+telegram_token.txt
+bot_config.json
+
+# Ollama API keys
+ollama_config.json
+
+# ngrok configuration
+ngrok.yml
+.ngrok2/
+
+# ================================
+# Database Files
+# ================================
+# PostgreSQL data
+postgres_data/
+pgdata/
+*.sql.backup
+*.dump
+
+# SQLite databases (if used)
+*.db
+*.sqlite
+*.sqlite3
+
+# Database connection strings
+database.config
+
+# ================================
+# Docker & WSL2
+# ================================
+# Docker volumes
+docker_volumes/
+volumes/
+
+# Docker compose override
+docker-compose.override.yml
+docker-compose.local.yml
+
+# WSL2 specific files
+.wslconfig
+wsl.conf
+
+# ================================
+# Logs & Monitoring
+# ================================
+# Application logs
+logs/
+*.log
+*.log.*
+log_*
+
+# Error logs
+error.log
+debug.log
+access.log
+
+# PM2 logs (if used)
+pm2.log
+pm2-error.log
+
+# ================================
+# Node.js (if custom nodes)
+# ================================
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Package lock files (keep package.json)
+package-lock.json
+yarn.lock
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# ================================
+# Python (for custom scripts)
+# ================================
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# ================================
+# System Files
+# ================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ================================
+# IDE & Editors
+# ================================
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+
+# ================================
+# SSL Certificates
+# ================================
+# SSL certificates and keys
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.pfx
+
+# Let's Encrypt
+letsencrypt/
+certbot/
+
+# ================================
+# Backup Files
+# ================================
+# General backups
+backup/
+backups/
+*.backup
+*.bak
+*.old
+*.orig
+
+# Configuration backups
+config.backup
+settings.backup
+
+# ================================
+# Temporary Files
+# ================================
+# Temporary directories
+tmp/
+temp/
+.tmp/
+.temp/
+
+# Cache directories
+cache/
+.cache/
+.npm/
+.yarn/
+
+# ================================
+# AI Model Files (Ollama)
+# ================================
+# Large model files
+*.gguf
+*.bin
+models/
+ollama_models/
+
+# Model cache
+.ollama/
+model_cache/
+
+# ================================
+# Monitoring & Analytics
+# ================================
+# Grafana data
+grafana_data/
+
+# Prometheus data
+prometheus_data/
+
+# Metrics and analytics
+metrics/
+analytics/
+
+# ================================
+# Development Tools
+# ================================
+# Nodemon
+nodemon.json
+
+# ESLint
+.eslintcache
+
+# Prettier
+.prettierignore
+
+# Testing
+test_results/
+coverage/
+.nyc_output/
+
+# ================================
+# Custom Project Files
+# ================================
+# Development notes
+notes.md
+TODO.md
+DEVELOPMENT.md
+
+# Test configurations
+test.config.js
+test.env
+
+# Local development scripts
+dev_scripts/
+local_scripts/
+
+# ================================
+# Documentation Build
+# ================================
+# Generated documentation
+docs/build/
+site/
+
+# ================================
+# Security Scans
+# ================================
+# Security scan results
+security_scan_results/
+vulnerabilities.json
+
+# ================================
+# Keep These Files
+# ================================
+# Important: Add ! before files you want to keep
+!.env.example
+!.gitignore
+!README.md
+!LICENSE
+!docker-compose.yml
+!package.json
+!requirements.txt
+!n8n_workflow.json
+
+# ================================
+# Project Specific Exclusions
+# ================================
+# Add your custom exclusions below
+# Example:
+# custom_config/
+# local_development/

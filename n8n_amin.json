@@ -1,0 +1,725 @@
+{
+  "name": "n8n_amin",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "qwen3:4b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        500,
+        80
+      ],
+      "id": "77d6f922-e8bd-4819-baaa-889c48d17892",
+      "name": "Ollama(models)",
+      "credentials": {
+        "ollamaApi": {
+          "id": "F7ClNMrlQJHZEo6E",
+          "name": "Ollama Model"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "simple": false,
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        60,
+        -200
+      ],
+      "id": "42284f80-adbc-490b-9335-8d114372d28b",
+      "name": "Gmail_Get_MSG",
+      "webhookId": "e15ebe7b-8a2b-49c9-a6a2-e6832a8f92b3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "QsapyzRKS7v5O1k8",
+          "name": "Gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $fromAI('Recipient_Email', `Email adress of the Recipient`, 'string') }}",
+        "subject": "={{ $fromAI('Subject_Email', `Email Subject of the Recipient`, 'string') }}",
+        "emailType": "text",
+        "message": "={{ $fromAI('Subject_Body', `Email Body of the Recipient`, 'string') }}",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Amin_Moniry"
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        200,
+        -200
+      ],
+      "id": "fc002150-2d23-4d12-8bf2-711be761ee39",
+      "name": "Gmail_Send_MSG",
+      "webhookId": "089eb2af-04d3-4f95-bab3-fb27874fdb89",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "QsapyzRKS7v5O1k8",
+          "name": "Gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -600,
+        -120
+      ],
+      "id": "ca76c5e2-87d6-4abb-aafd-acf26d1bdf72",
+      "name": "Telegram( Input )",
+      "webhookId": "3b37d650-b67e-4ed3-a5c9-e9585c2fe003",
+      "credentials": {
+        "telegramApi": {
+          "id": "kQNU2tXY2PBO6IH2",
+          "name": "Telegram "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram( Input )').item.json.message.chat.id }}",
+        "text": "={{ $json.output.replace(/<think>[\\s\\S]*?<\\/think>/gi, '') + '\\n\\n𝑨𝒎𝒊𝒏 💛 𝑴𝒐𝒏𝒊𝒓𝒚' }}\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1360,
+        -120
+      ],
+      "id": "d2f89adc-6864-4944-a37c-2cecd122007a",
+      "name": "Telegram( Output )",
+      "webhookId": "f200288c-aff5-4beb-845c-0a1e752d237d",
+      "credentials": {
+        "telegramApi": {
+          "id": "kQNU2tXY2PBO6IH2",
+          "name": "Telegram "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=🧠 Role\nYou are a smart Chat_BOT that helps the user do whatever they want — quickly and clearly.\n\n📬 Gmail_Send_MSG\nWhen the user wants to send a message to someone, use this section to compose and deliver the email.\n\n📥 Gmail_Get_MSG\nUse this section when the user wants to retrieve specific emails, such as the latest message from the inbox, sent folder, or any particular email.\nTIP: Handle all Gmail_Get_MSG tasks without asking unnecessary questions.\n\n📜 Rules\nAdd yellow stickers automatically, inside the text, where they fit.Stickers should be nice, meaningful, and not too many.\nDon’t put them all at the end. Keep good spacing.\n❌ Don’t use: 🚀, 😊, 😂, 🙏, 😍, 🤔, 😢, 🎉, 💡\n\n👤 Name\nUse the user's name like this:\n{{ $('Telegram( Input )').item.json.message.chat.first_name }}\nPut it naturally in the sentence — not just at the start or end."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -60,
+        -420
+      ],
+      "id": "3d17fdec-02a7-4b91-90b1-19a7eb3c7731",
+      "name": "AI Agent( Amin )"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor item in _input.all():\n  item.json.myNewField = 1\nreturn _input.all()"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        -260
+      ],
+      "id": "d7a3508c-954d-448a-b8a1-a49f11a9b941",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6ded2c5e-70bc-4b4a-ae31-4357e7864ad9",
+              "leftValue": "={{ $json.output.toLowerCase() }}",
+              "rightValue": "=python\n",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "c1409fe6-c3ac-4b69-bdc6-42911c086c1c",
+              "leftValue": "={{ $json.output.toLowerCase() }}",
+              "rightValue": "پایتون",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "fa51b3ea-8772-411b-a9f1-c9827f36a7e6",
+              "leftValue": "={{ $json.output.toLowerCase() }}",
+              "rightValue": "پایتونی",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "c569617d-58d7-43dc-997a-a4a50110bbc2",
+              "leftValue": "={{ $json.output.toLowerCase() }}",
+              "rightValue": "pyton",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        680,
+        -140
+      ],
+      "id": "67765f92-2d64-4a27-b7d6-49be87bfa9cf",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f3cd2ab9-f6c8-4d1f-9e86-7ed439cbfaaa",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "پیام ",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "18708e67-a9b4-424c-8322-2546fb925ff4",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "message",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "b798b517-7d58-449a-afd3-a13ff2339d59",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "messages",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "af29c339-6eb3-4dba-ab26-7ef4c9a18798",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "پیامم ",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "3954fe59-61f5-4a0f-9b5a-d40abeced07a",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "پیامی ",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "9ad30e7b-1238-4f55-b888-971599a94a62",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "messag",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -400,
+        -120
+      ],
+      "id": "8df06751-444d-4b60-b62d-6e07c1e2e622",
+      "name": "If1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        440,
+        -140
+      ],
+      "id": "f0bf2022-9fc1-4f72-819e-586644e0e961",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=🧠 Role\nYou are a smart Chat_BOT that helps the user do whatever they want — quickly and clearly.\n\n📊 Sheet\nWhen the user wants to view data from a Google Sheet (such as specific rows or columns), you should display the requested data clearly and accurately.\n\n🗃 Drive\nUse this section when the user needs to access or retrieve detailed information about their Google Drive, such as folder structures, file contents, storage usage, and the total number of files and folders.\n\n📜 Rules\nAdd 3 yellow stickers automatically, inside the text, where they fit.Stickers should be nice, meaningful .\nDon’t put them all at the end. Keep good spacing.\n❌ Don’t use: 🚀, 😊, 😂, 🙏, 😍, 🤔, 😢, 🎉, 💡\n\n👤 Name\nUse the user's name like this:\n{{ $('Telegram( Input )').item.json.message.chat.first_name }}\nPut it naturally in the sentence — not just at the start or end."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -40,
+        20
+      ],
+      "id": "3cb98a11-3faa-4704-b6b6-8d22b9b78d48",
+      "name": "AI Agent(Amin)"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "13504uhoewpkjzopo74btgsLmzCuqN92eccBI1_SoAOg",
+          "mode": "list",
+          "cachedResultName": "n8n_sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13504uhoewpkjzopo74btgsLmzCuqN92eccBI1_SoAOg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1364826426,
+          "mode": "list",
+          "cachedResultName": "Column",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13504uhoewpkjzopo74btgsLmzCuqN92eccBI1_SoAOg/edit#gid=1364826426"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        60,
+        240
+      ],
+      "id": "d437331f-db7e-4dae-a40b-b47be8c99a8c",
+      "name": "Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Z4cZkHJXtaFTYphb",
+          "name": "Google Sheets "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "={{ $fromAI('Recipient_Query', `File or Folder or searched name which is Recipient `, 'string') }}",
+        "returnAll": true,
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3,
+      "position": [
+        180,
+        240
+      ],
+      "id": "f9fe6426-20ad-4f4a-a417-ad87f34212f4",
+      "name": "Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "0hcodcOon9zyoyFW",
+          "name": "Google Drive "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-thinking-exp-01-21",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        240
+      ],
+      "id": "ad0a4ee4-3cee-4f65-9611-e4252c09ed04",
+      "name": "Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "8r3XmFX6dA2iZ08c",
+          "name": "Gemini(Model)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-thinking-exp-1219",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        -200
+      ],
+      "id": "41bdd4c5-a690-4158-a356-3d364fe0e736",
+      "name": "Gemini1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "8r3XmFX6dA2iZ08c",
+          "name": "Gemini(Model)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram( Input )').item.json.message.text }}",
+        "tableName": "n8n_memory_2",
+        "contextWindowLength": 0
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -140,
+        240
+      ],
+      "id": "00eabe27-0462-4ad4-8a06-f4e43ba7c01e",
+      "name": "Postgres-1",
+      "credentials": {
+        "postgres": {
+          "id": "BfFVIoHKDKGfixlY",
+          "name": "Postgres "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram( Input )').item.json.message.text }}",
+        "tableName": "n8n_memory_2",
+        "contextWindowLength": 0
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -100,
+        -200
+      ],
+      "id": "e10bb72e-5383-48ac-a888-a93637a02a1e",
+      "name": "Postgres-2",
+      "credentials": {
+        "postgres": {
+          "id": "BfFVIoHKDKGfixlY",
+          "name": "Postgres "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "02f25067-9d6f-459a-8db4-2da51c6b59a1",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "={{ $json.output }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        900,
+        -40
+      ],
+      "id": "2fbe1637-5906-47c5-9d5e-13783444b644",
+      "name": "Filter"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1160,
+        -120
+      ],
+      "id": "aa939903-48da-403e-8ff2-d5a7e63616a1",
+      "name": "Merge1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Ollama(models)": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Gmail_Get_MSG": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent( Amin )",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail_Send_MSG": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent( Amin )",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram( Input )": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram( Output )": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent( Amin )": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent( Amin )",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent(Amin)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent(Amin)": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent(Amin)",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drive": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent(Amin)",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent(Amin)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent( Amin )",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres-1": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "Postgres-2": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Telegram( Output )",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9fb30805-9cbe-4bbe-a0a3-6dd5415cde7c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "72b61a3ab216ff9a209f372bb5e165beaa0bce455fa34beb83debefebe02bf6b"
+  },
+  "id": "RoskvplhRmXWbF4v",
+  "tags": [
+    {
+      "createdAt": "2025-05-29T14:42:49.097Z",
+      "updatedAt": "2025-05-29T14:42:49.097Z",
+      "id": "mTqaAArI6CqIJNpu",
+      "name": "n8n-bot"
+    }
+  ]
+}
